@@ -1,6 +1,6 @@
-﻿using Api.Dependencies;
-using Api.Interfaces;
-using Api.Services;
+﻿using SendMail.Api.Dependencies;
+using SendMail.Api.Interfaces;
+using SendMail.Api.Services;
 using Serilog;
 
 namespace Api;

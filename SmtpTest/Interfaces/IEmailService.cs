@@ -1,7 +1,7 @@
-﻿using Api.Entities.Mail;
+﻿using SendMail.Api.Entities.Mail;
 using FluentEmail.Core.Models;
 
-namespace Api.Interfaces;
+namespace SendMail.Api.Interfaces;
 
 public interface IEmailService
 {

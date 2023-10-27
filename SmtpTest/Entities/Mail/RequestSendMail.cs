@@ -1,4 +1,4 @@
-﻿namespace Api.Entities.Mail;
+﻿namespace SendMail.Api.Entities.Mail;
 
 public record RequestSendMail
 {

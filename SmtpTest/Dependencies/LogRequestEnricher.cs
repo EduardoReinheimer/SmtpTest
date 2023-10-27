@@ -1,6 +1,6 @@
 ﻿using Serilog;
 
-namespace Api.Dependencies;
+namespace SendMail.Api.Dependencies;
 
 public static class LogRequestEnricher
 {

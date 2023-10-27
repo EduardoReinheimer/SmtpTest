@@ -1,9 +1,9 @@
-﻿using Api.Entities.Mail;
-using Api.Interfaces;
+﻿using SendMail.Api.Entities.Mail;
+using SendMail.Api.Interfaces;
 using FluentEmail.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers.v1;
+namespace SendMail.Api.Controllers.v1;
 
 [ApiController]
 [Route("/api/[controller]/[action]")]
