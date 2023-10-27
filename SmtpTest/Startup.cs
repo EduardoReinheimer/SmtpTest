@@ -1,9 +1,9 @@
-﻿using SendMail.Api.Dependencies;
-using SendMail.Api.Interfaces;
-using SendMail.Api.Services;
+﻿using SendMail.Dependencies;
+using SendMail.Interfaces;
+using SendMail.Services;
 using Serilog;
 
-namespace Api;
+namespace SendMail;
 
 public class Startup
 {
@@ -21,8 +21,7 @@ public class Startup
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
-        services.AddFluentEmail("mail@example.com")
-                .AddSmtpSender("localhost", 25);
+        services.AddFluentEmail(Configuration);
 
         //Parte de injección de dependencias que debería estar en otro proyecto
         services.AddTransient<IEmailService, EmailService>();

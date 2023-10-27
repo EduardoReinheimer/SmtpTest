@@ -1,9 +1,9 @@
-﻿using SendMail.Api.Entities.Mail;
-using SendMail.Api.Interfaces;
+﻿using SendMail.Entities.Mail;
+using SendMail.Interfaces;
 using FluentEmail.Core;
 using FluentEmail.Core.Models;
 
-namespace SendMail.Api.Services;
+namespace SendMail.Services;
 
 public class EmailService : IEmailService
 {
@@ -11,7 +11,7 @@ public class EmailService : IEmailService
 
     public EmailService(IFluentEmail fluentEmail)
     {
-        _fluentEmail = fluentEmail;
+        _fluentEmail = fluentEmail ?? throw new ArgumentNullException(nameof(fluentEmail));
     }
 
     public async Task<SendResponse> SendMailAsync(RequestSendMail mailRequest)

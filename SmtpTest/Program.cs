@@ -1,6 +1,6 @@
 using Serilog;
 
-namespace Api;
+namespace SendMail;
 
 public class Program
 {
