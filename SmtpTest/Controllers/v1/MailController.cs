@@ -2,6 +2,7 @@
 using SendMail.Interfaces;
 using FluentEmail.Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using SendMail.Services;
 
 namespace SendMail.Controllers.v1;
 
@@ -41,6 +42,4 @@ public class MailController : ControllerBase
                 StatusCodes.Status503ServiceUnavailable,
                 result);
     }
-
-
 }

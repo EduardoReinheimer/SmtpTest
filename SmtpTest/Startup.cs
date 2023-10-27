@@ -1,4 +1,5 @@
-﻿using SendMail.Dependencies;
+﻿using RazorLight.Extensions;
+using SendMail.Dependencies;
 using SendMail.Interfaces;
 using SendMail.Services;
 using Serilog;
