@@ -33,7 +33,7 @@ public class MailController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<SendResponse>> SendMail(RequestSendMail body)
     {
-        SendResponse result = await _service.SendMailAsync(body);
+        var result = await _service.SendMailAsync(body);
 
         return result.Successful
             ? Ok(result)

@@ -1,5 +1,7 @@
-﻿using Api.Interfaces;
+﻿using Api.Dependencies;
+using Api.Interfaces;
 using Api.Services;
+using Serilog;
 
 namespace Api;
 
@@ -34,12 +36,16 @@ public class Startup
         {
             app.UseSwagger();
             app.UseSwaggerUI();
+            app.UseDeveloperExceptionPage();
         }
 
         app.UseHttpsRedirection();
 
         app.UseRouting();
         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+        app.UseSerilogRequestLogging(opts
+            => opts.EnrichDiagnosticContext = LogRequestEnricher.EnrichFromRequest);
     }
 
 }
