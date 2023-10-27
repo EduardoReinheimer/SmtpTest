@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Api.Interfaces;
+using Api.Services;
 
 namespace Api;
 
@@ -17,9 +18,12 @@ public class Startup
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+
         services.AddFluentEmail("mail@example.com")
                 .AddSmtpSender("localhost", 25);
 
+        //Parte de injección de dependencias que debería estar en otro proyecto
+        services.AddTransient<IEmailService, EmailService>();
     }
 
     public void Configure(IApplicationBuilder app,
