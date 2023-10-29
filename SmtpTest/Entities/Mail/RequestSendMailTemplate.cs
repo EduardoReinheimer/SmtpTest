@@ -1,6 +1,4 @@
-﻿using TemplatesLibrary.Entities.Notification;
-
-namespace SendMail.Entities.Mail;
+﻿namespace SendMail.Entities.Mail;
 
 public record RequestSendMailTemplate
 {

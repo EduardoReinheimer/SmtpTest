@@ -1,0 +1,50 @@
+﻿@model SendMail.DefaultNotification;
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>@Model.Titulo</title>
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            background-color: #475B90;
+            text-align: center;
+            color: #475B90;
+        }
+
+        div {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px #aaa;
+        }
+
+        hr {
+            border-color: #cedc00;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>@Model.Titulo</h1>
+        <h2>@Model.DescripcionCorta</h2>
+        <hr />
+        @foreach (var campo in Model.CamposDinamicos)
+        {
+            <p>@campo.FieldName: @campo.FieldValue</p>
+        }
+        <hr />
+        <p>Fecha: @Model.FechaEnvío</p>
+    </div>
+</body>
+
+</html>

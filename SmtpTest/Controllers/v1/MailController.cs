@@ -2,7 +2,6 @@
 using SendMail.Interfaces;
 using FluentEmail.Core.Models;
 using Microsoft.AspNetCore.Mvc;
-using SendMail.Services;
 
 namespace SendMail.Controllers.v1;
 
@@ -35,6 +34,20 @@ public class MailController : ControllerBase
     public async Task<ActionResult<SendResponse>> SendMail(RequestSendMail body)
     {
         var result = await _service.SendMailAsync(body);
+
+        return result.Successful
+            ? Ok(result)
+            : StatusCode(
+                StatusCodes.Status503ServiceUnavailable,
+                result);
+    }
+
+    [ProducesResponseType(typeof(SendResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(SendResponse), StatusCodes.Status503ServiceUnavailable)]
+    [HttpPost]
+    public async Task<ActionResult<SendResponse>> SendMailNotification(RequestSendMailTemplate body)
+    {
+        var result = await _service.SendMailNotificationAsync(body);
 
         return result.Successful
             ? Ok(result)

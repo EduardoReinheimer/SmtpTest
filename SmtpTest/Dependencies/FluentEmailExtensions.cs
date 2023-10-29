@@ -1,5 +1,4 @@
 ﻿using SendMail.Entities.Mail;
-using TemplatesLibrary;
 
 namespace SendMail.Dependencies;
 
@@ -31,7 +30,7 @@ public static class FluentEmailExtensions
         {
             services.AddFluentEmail(defaultFromEmail)
                 .AddSmtpSender(host, port)
-                .AddRazorRenderer("@\"C:\\Users\\eduardo.reinheimer\\source\\repos\\SmtpTest\\TemplatesLibrary\\Templates\\Notification\\");
+                .AddRazorRenderer(Directory.GetCurrentDirectory());
         }
         return services;
     }

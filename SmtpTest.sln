@@ -5,8 +5,6 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SendMail", "SmtpTest\SendMail.csproj", "{C63603B5-C179-4219-9BA6-9F9EBE463891}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemplatesLibrary", "TemplatesLibrary\TemplatesLibrary.csproj", "{0D89B5B3-5AFB-411F-935B-10B93074697B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{C63603B5-C179-4219-9BA6-9F9EBE463891}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C63603B5-C179-4219-9BA6-9F9EBE463891}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C63603B5-C179-4219-9BA6-9F9EBE463891}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D89B5B3-5AFB-411F-935B-10B93074697B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D89B5B3-5AFB-411F-935B-10B93074697B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D89B5B3-5AFB-411F-935B-10B93074697B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D89B5B3-5AFB-411F-935B-10B93074697B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
