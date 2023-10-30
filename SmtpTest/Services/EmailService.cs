@@ -37,15 +37,6 @@ public class EmailService : IEmailService
         { 
             var path = Path.GetFullPath("Templates\\DefaultNotification.cshtml");
 
-            var listFields = new List<CampoValor>();
-            var field = new CampoValor("Nombre", "Valor");
-            listFields.Add(field);
-            var notification = new DefaultNotification(
-                    titulo: "Correo",
-                    descripcionCorta: "descripcion",
-                    camposDinamicos: listFields
-                );
-
             return await _fluentEmail.To(mailRequest.EmailDestino)
             .Subject(mailRequest.Asunto)
             .UsingTemplateFromFile(path, mailRequest.Template)
