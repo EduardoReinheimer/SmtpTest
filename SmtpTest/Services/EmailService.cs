@@ -54,25 +54,26 @@ public class EmailService : IEmailService
 
     public async Task<List<SendResponse>> SendMultipleMailNotificationAsync(List<RequestSendMailTemplate> mailRequests)
     {
-        var response = new List<SendResponse>();
-
         var path = Path.GetFullPath("Templates\\DefaultNotification.cshtml");
 
         var tasks = new List<Task<SendResponse>>();
         foreach (var mail in mailRequests)
         {
-            tasks.Add(Task.Run(async () => await SendMailNotificationAsync(mail)));
+            tasks.Add(Task.Run(async () => await _fluentEmailFactory
+                .Create()
+                .To(mail.EmailDestino)
+                .Subject(mail.Asunto)
+                .UsingTemplateFromFile(path, mail.Template)
+                .SendAsync()));
         }
-
         await Task.WhenAll(tasks);
-
-        //Así que listo vamos poner todos los retornos de error
-        tasks.ForEach(task =>
+        var result = new List<SendResponse>();
+        tasks.ForEach(tsk =>
         {
-            response.Add(task.Result);
+            result.Add(tsk.Result);
         });
 
-        return response;
+        return result;
     }
 
     public async Task<bool> SendTestMail()
