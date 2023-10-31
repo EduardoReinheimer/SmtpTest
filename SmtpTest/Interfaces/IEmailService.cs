@@ -9,4 +9,5 @@ public interface IEmailService
 
     Task<SendResponse> SendMailAsync(RequestSendMail mailRequest);
     Task<SendResponse> SendMailNotificationAsync(RequestSendMailTemplate mailRequest);
+    Task<List<SendResponse>> SendMultipleMailNotificationAsync(List<RequestSendMailTemplate> mailRequest);
 }

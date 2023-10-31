@@ -8,10 +8,12 @@ namespace SendMail.Services;
 public class EmailService : IEmailService
 {
     private IFluentEmail _fluentEmail;
+    private readonly IFluentEmailFactory _fluentEmailFactory;
 
-    public EmailService(IFluentEmail fluentEmail)
+    public EmailService(IFluentEmail fluentEmail, IFluentEmailFactory fluentEmailFactory)
     {
         _fluentEmail = fluentEmail ?? throw new ArgumentNullException(nameof(fluentEmail));
+        _fluentEmailFactory = fluentEmailFactory ?? throw new ArgumentNullException(nameof(fluentEmailFactory));
     }
 
     public async Task<SendResponse> SendMailAsync(RequestSendMail mailRequest)
@@ -34,7 +36,7 @@ public class EmailService : IEmailService
     public async Task<SendResponse> SendMailNotificationAsync(RequestSendMailTemplate mailRequest)
     {
         try
-        { 
+        {
             var path = Path.GetFullPath("Templates\\DefaultNotification.cshtml");
 
             return await _fluentEmail.To(mailRequest.EmailDestino)
@@ -50,6 +52,29 @@ public class EmailService : IEmailService
         }
     }
 
+    public async Task<List<SendResponse>> SendMultipleMailNotificationAsync(List<RequestSendMailTemplate> mailRequests)
+    {
+        var response = new List<SendResponse>();
+
+        var path = Path.GetFullPath("Templates\\DefaultNotification.cshtml");
+
+        var tasks = new List<Task<SendResponse>>();
+        foreach (var mail in mailRequests)
+        {
+            tasks.Add(Task.Run(async () => await SendMailNotificationAsync(mail)));
+        }
+
+        await Task.WhenAll(tasks);
+
+        //Así que listo vamos poner todos los retornos de error
+        tasks.ForEach(task =>
+        {
+            response.Add(task.Result);
+        });
+
+        return response;
+    }
+
     public async Task<bool> SendTestMail()
     {
         bool success = true;
@@ -63,6 +88,4 @@ public class EmailService : IEmailService
         }
         return success;
     }
-
-
 }

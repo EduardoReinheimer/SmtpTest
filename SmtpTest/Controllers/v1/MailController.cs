@@ -55,4 +55,28 @@ public class MailController : ControllerBase
                 StatusCodes.Status503ServiceUnavailable,
                 result);
     }
+
+    [ProducesResponseType(typeof(List<SendResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<SendResponse>), StatusCodes.Status503ServiceUnavailable)]
+    [HttpPost]
+    public async Task<ActionResult<List<SendResponse>>> SendMultipleMailNotification(List<RequestSendMailTemplate> body)
+    {
+        var responses = await _service.SendMultipleMailNotificationAsync(body);
+
+        bool healthy = true;
+        responses.ForEach(response =>
+        {
+            if (!response.Successful)
+            {
+                healthy = false;
+
+            }
+        });
+
+        return healthy ?
+            Ok(responses) :
+            StatusCode(
+                StatusCodes.Status503ServiceUnavailable,
+                responses);
+    }
 }
