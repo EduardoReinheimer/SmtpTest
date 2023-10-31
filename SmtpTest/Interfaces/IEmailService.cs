@@ -5,7 +5,6 @@ namespace SendMail.Interfaces;
 
 public interface IEmailService
 {
-    Task<bool> SendTestMail();
 
     Task<SendResponse> SendMailAsync(RequestSendMail mailRequest);
     Task<SendResponse> SendMailNotificationAsync(RequestSendMailTemplate mailRequest);

@@ -18,15 +18,6 @@ public class MailController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<string>> SendTest()
-    {
-
-        var response = await _service.SendTestMail();
-        return response
-            ? Ok(response)
-            : Problem("Deu ruim");
-    }
 
     [ProducesResponseType(typeof(SendResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(SendResponse), StatusCodes.Status503ServiceUnavailable)]

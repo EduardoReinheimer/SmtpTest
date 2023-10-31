@@ -20,10 +20,13 @@ public class EmailService : IEmailService
     {
         try
         {
+            var addressesList = new List<Address>();
+            addressesList.Clear();
             return await _fluentEmail.To(mailRequest.EmailDestino)
-            .Subject(mailRequest.Asunto)
-            .Body(mailRequest.Body, true)
-            .SendAsync();
+                .Subject(mailRequest.Asunto)
+                .CC(addressesList)
+                .Body(mailRequest.Body, true)
+                .SendAsync();
         }
         catch (Exception ex)
         {
@@ -39,10 +42,15 @@ public class EmailService : IEmailService
         {
             var path = Path.GetFullPath("Templates\\DefaultNotification.cshtml");
 
+            var addressesList = new List<Address>();
+            addressesList.Clear();
+            mailRequest.EmailCopia.ForEach(ccmail => addressesList.Add(new Address(ccmail)));
+
             return await _fluentEmail.To(mailRequest.EmailDestino)
-            .Subject(mailRequest.Asunto)
-            .UsingTemplateFromFile(path, mailRequest.Template)
-            .SendAsync();
+                .Subject(mailRequest.Asunto)
+                .CC(addressesList)
+                .UsingTemplateFromFile(path, mailRequest.Template)
+                .SendAsync();
         }
         catch (Exception ex)
         {
@@ -56,12 +64,17 @@ public class EmailService : IEmailService
     {
         var path = Path.GetFullPath("Templates\\DefaultNotification.cshtml");
 
+        var addressesList = new List<Address>();
         var tasks = new List<Task<SendResponse>>();
         foreach (var mail in mailRequests)
         {
+            addressesList.Clear();
+            mail.EmailCopia.ForEach(ccmail => addressesList.Add(new Address(ccmail)));
+
             tasks.Add(Task.Run(async () => await _fluentEmailFactory
                 .Create()
                 .To(mail.EmailDestino)
+                .CC(addressesList)
                 .Subject(mail.Asunto)
                 .UsingTemplateFromFile(path, mail.Template)
                 .SendAsync()));
@@ -74,19 +87,5 @@ public class EmailService : IEmailService
         });
 
         return result;
-    }
-
-    public async Task<bool> SendTestMail()
-    {
-        bool success = true;
-        try
-        {
-            await _fluentEmail.To("mail@example.com").Body("The body").SendAsync();
-        }
-        catch (Exception)
-        {
-            success = false;
-        }
-        return success;
     }
 }
