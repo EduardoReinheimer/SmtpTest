@@ -30,7 +30,7 @@ public static class FluentEmailExtensions
         {
             services.AddFluentEmail(defaultFromEmail)
                 .AddSmtpSender(host, port)
-                .AddRazorRenderer(Directory.GetCurrentDirectory());
+                .AddRazorRenderer();
         }
         return services;
     }
